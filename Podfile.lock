@@ -1,0 +1,52 @@
+PODS:
+  - Alamofire (4.9.1)
+  - AlamofireObjectMapper (5.2.1):
+    - Alamofire (~> 4.7)
+    - ObjectMapper (~> 3.4)
+  - Kingfisher (4.10.1)
+  - MGSwipeTableCell (1.6.11)
+  - ObjectMapper (3.5.1)
+  - Realm (4.1.1):
+    - Realm/Headers (= 4.1.1)
+  - Realm/Headers (4.1.1)
+  - RealmSwift (4.1.1):
+    - Realm (= 4.1.1)
+  - Reusable (4.1.0):
+    - Reusable/Storyboard (= 4.1.0)
+    - Reusable/View (= 4.1.0)
+  - Reusable/Storyboard (4.1.0)
+  - Reusable/View (4.1.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireObjectMapper
+  - Kingfisher
+  - MGSwipeTableCell
+  - ObjectMapper
+  - RealmSwift
+  - Reusable
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AlamofireObjectMapper
+    - Kingfisher
+    - MGSwipeTableCell
+    - ObjectMapper
+    - Realm
+    - RealmSwift
+    - Reusable
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AlamofireObjectMapper: 1989f690e982b71921b9253f53a4f33a9bc00d88
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
+  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
+  Realm: 25f0a8244cbb1c2271c922963ea8666fc2d8104d
+  RealmSwift: 9e2657b33764f80e4a4dffd6d440e24715782052
+  Reusable: 82be188f29d96dc5eff0db7b2393bcc08d2cdd5b
+
+PODFILE CHECKSUM: e1f1cb18027e4bab76ad2827a8e6c5b49ce74a45
+
+COCOAPODS: 1.8.3
