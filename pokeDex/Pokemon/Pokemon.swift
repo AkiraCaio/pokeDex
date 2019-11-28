@@ -19,7 +19,9 @@ class Pokemon: Object, Mappable {
     @objc dynamic var sprites: String?
     var types = List<Type>()
     var weight = RealmOptional<Float>()
-
+    
+    @objc dynamic var favorito: Bool = false
+    
     override static func primaryKey() -> String? {
         return "name"
     }

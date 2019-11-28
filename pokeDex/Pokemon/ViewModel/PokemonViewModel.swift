@@ -16,7 +16,9 @@ struct PokemonView {
     var weight: Float = 0
     var name: String = ""
     var image: String = ""
-    
+    var favorito: Bool = false
+    var ability: [AbilityView] = []
+    var types: [TypeView] = []
 }
 
 class PokemonViewModel {
@@ -65,6 +67,9 @@ class PokemonViewModel {
         pokemonView.weight = pokemon.weight.value ?? 0
         pokemonView.name = pokemon.name ?? "pika"
         pokemonView.image = pokemon.sprites ?? "-"
+        pokemonView.ability = AbilityViewModel.getAsView(abilitys: pokemon.abilities)
+        pokemonView.types = TypeViewModel.getAsView(types: pokemon.types)
+        pokemonView.favorito = pokemon.favorito
 
         return pokemonView
     }
