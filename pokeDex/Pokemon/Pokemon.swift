@@ -18,6 +18,7 @@ class Pokemon: Object, Mappable {
     @objc dynamic var name: String?
     @objc dynamic var sprites: String?
     var types = List<Type>()
+    var status = List<Status>()
     var weight = RealmOptional<Float>()
     
     @objc dynamic var favorito: Bool = false
@@ -37,6 +38,8 @@ class Pokemon: Object, Mappable {
         self.name                                   <- map["name"]
         self.sprites                                <- map["sprites.front_default"]
         self.types                                  <- (map["types"], ListTransform<Type>())
+        self.status                                 <- (map["stats"], ListTransform<Status>())
         self.weight.value                           <- map["weight"]
+        
     }
 }

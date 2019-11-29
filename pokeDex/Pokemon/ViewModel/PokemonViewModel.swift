@@ -19,6 +19,7 @@ struct PokemonView {
     var favorito: Bool = false
     var ability: [AbilityView] = []
     var types: [TypeView] = []
+    var status: [StatusView] = []
 }
 
 class PokemonViewModel {
@@ -69,6 +70,7 @@ class PokemonViewModel {
         pokemonView.image = pokemon.sprites ?? "-"
         pokemonView.ability = AbilityViewModel.getAsView(abilitys: pokemon.abilities)
         pokemonView.types = TypeViewModel.getAsView(types: pokemon.types)
+        pokemonView.status = StatusViewModel.getAsView(statusArray: pokemon.status)
         pokemonView.favorito = pokemon.favorito
 
         return pokemonView

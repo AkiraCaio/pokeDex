@@ -14,6 +14,26 @@ struct TypeView {
     var name: String = ""
 }
 
+enum TypeEnum{
+    case bug
+    case dark
+    case dragon
+    case eletric
+    case fairy
+    case fighting
+    case fire
+    case flying
+    case ghost
+    case grass
+    case ground
+    case ice
+    case normal
+    case poison
+    case psychic
+    case steel
+    case water
+}
+
 class TypeViewModel {
     
     static func save(object: Type){

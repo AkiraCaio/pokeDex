@@ -63,6 +63,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.service.getPokemons(number: self.pokemons.count)
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = (storyboard?.instantiateViewController(identifier: "DetalhesViewController")) as! DetalhesViewController
+        
+        controller.pokemon = self.pokemons[indexPath.row]
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 extension ViewController: PokemonServiceDelegate {
