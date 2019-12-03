@@ -11,10 +11,10 @@ import RealmSwift
 
 struct TypeView {
     
-    var name: String = ""
+    var name: TypeEnum = .normal
 }
 
-enum TypeEnum{
+enum TypeEnum: String {
     case bug
     case dark
     case dragon
@@ -62,7 +62,7 @@ class TypeViewModel {
 
         var typeView = TypeView()
         
-        typeView.name = type.name ?? "-"
+        typeView.name = TypeEnum(rawValue: type.name ?? "") ?? TypeEnum.normal
 
         return typeView
     }

@@ -15,17 +15,12 @@ class PokemonRequestFactory{
     
         return Alamofire.request("\(baseUrl)/pokemon/\(id)", method: .get)
     }
-    
-    static func getPosts(url: String) -> DataRequest{
-     
-         return Alamofire.request(url, method: .get)
-     }
      
      static func getPokemons(offset: Int) -> DataRequest {
          
          let params: Parameters = ["offset": offset, "limit": 20]
          
-         return Alamofire.request("https://pokeapi.co/api/v2/pokemon", method: .get, parameters: params)
+         return Alamofire.request("\(baseUrl)pokemon", method: .get, parameters: params)
      }
     
 }

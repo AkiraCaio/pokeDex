@@ -17,6 +17,8 @@ class Ability: Object, Mappable {
     @objc dynamic var url: String?
     @objc dynamic var name: String?
     
+    
+    
     required convenience init?(map: Map) {
         self.init()
     }

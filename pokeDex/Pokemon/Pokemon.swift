@@ -23,6 +23,8 @@ class Pokemon: Object, Mappable {
     
     @objc dynamic var favorito: Bool = false
     
+    var evolucaoPokemon = RealmOptional<Int>()
+    
     override static func primaryKey() -> String? {
         return "name"
     }
@@ -32,6 +34,7 @@ class Pokemon: Object, Mappable {
     }
     
     func mapping(map: Map) {
+        
         self.abilities                              <- (map["abilities"], ListTransform<Ability>())
         self.height.value                           <- map["height"]
         self.id.value                               <- map["id"]
@@ -40,6 +43,5 @@ class Pokemon: Object, Mappable {
         self.types                                  <- (map["types"], ListTransform<Type>())
         self.status                                 <- (map["stats"], ListTransform<Status>())
         self.weight.value                           <- map["weight"]
-        
     }
 }

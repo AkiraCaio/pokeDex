@@ -27,6 +27,12 @@ class ViewController: UIViewController {
         self.setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.pokemons = PokemonViewModel.getAll()
+    }
+    
     private func configService() {
         self.service = PokemonService(delegate: self)
         

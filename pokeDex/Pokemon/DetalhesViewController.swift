@@ -30,11 +30,26 @@ class DetalhesViewController: UIViewController {
     @IBOutlet weak var herancaLabel: UILabel!
     
     var pokemon: PokemonView?
+    var evolutionChain: EvolutionChainView?
+    
+    var specieService: SpecieService!
+    var evolucaoService: EvolucaoService!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.configScreen()
+        self.configService()
+    }
+    
+    private func configService() {
+        
+        self.specieService = SpecieService(delegate: self)
+        self.evolucaoService = EvolucaoService(delegate: self)
+        
+        if let pokemon = self.pokemon {
+            self.specieService.getSpecie(id: pokemon.id)
+        }
     }
     
     private func configScreen() {
@@ -57,7 +72,6 @@ class DetalhesViewController: UIViewController {
             
             self.comprimentoLabel.text = String(pokemon.weight)
             self.alturaLabel.text = String(pokemon.height)
-            
         }
         
         self.configView()
@@ -75,6 +89,34 @@ class DetalhesViewController: UIViewController {
         self.info2View.layer.shadowRadius = 10
         
     }
+}
+
+extension DetalhesViewController: SpecieServiceDelegate {
+    func success() {
+        
+        self.pokemon = PokemonViewModel.getPokemonView(id: pokemon!.name)
+
+        if let pokemon = self.pokemon {
+            self.evolucaoService.getEvolucao(id: pokemon.evolutionChainId)
+        }
+    }
     
+    func failure(erro: String) {
+        
+    }
+    
+    
+}
+extension DetalhesViewController: EvolucaoServiceDelegate {
+    func successEvolution() {
+        if let pokemon = self.pokemon {
+            self.evolutionChain = EvolutionChainViewModel.getEvolutionChain(id: pokemon.evolutionChainId)
+        }
+        
+    }
+    
+    func failureEvolution(erro: String) {
+        
+    }
     
 }

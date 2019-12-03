@@ -27,7 +27,7 @@ class PokemonTableViewCell: UITableViewCell {
     }
     
     func bind(pokemon: PokemonView) {
-        self.labelId.text = String(pokemon.id)
+        self.labelId.text = "#\(pokemon.id)"
         self.labelPokemonName.text = pokemon.name
         self.imageViewPokemon.setImage(with: pokemon.image)
     }
