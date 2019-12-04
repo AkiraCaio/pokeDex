@@ -59,34 +59,75 @@ class TypeViewModel {
         guard let type = type else{
             return TypeView()
         }
-
+        
         var typeView = TypeView()
         
         typeView.name = TypeEnum(rawValue: type.name ?? "") ?? TypeEnum.normal
-
+        
         return typeView
     }
-
+    
     static func getAsView(types: [Type]) -> [TypeView] {
-
+        
         var typesView: [TypeView] = []
-
+        
         types.forEach { (type) in
             typesView.append(self.getAsView(type: type))
         }
-
-        return typesView
-    }
-
-    static func getAsView(types: List<Type>) -> [TypeView] {
-
-        var typesView: [TypeView] = []
-
-        types.forEach { (type) in
-            typesView.append(self.getAsView(type: type))
-        }
-
+        
         return typesView
     }
     
+    static func getAsView(types: List<Type>) -> [TypeView] {
+        
+        var typesView: [TypeView] = []
+        
+        types.forEach { (type) in
+            typesView.append(self.getAsView(type: type))
+        }
+        
+        return typesView
+    }
+    
+    static func getImageType(_ type: TypeEnum) -> UIImage{
+        
+        switch type {
+            
+        case .bug:
+            return UIImage(named: "Types-Bug")!
+        case .dark:
+            return UIImage(named: "Types-Dark")!
+        case .dragon:
+            return UIImage(named: "Types-Dragon")!
+        case .eletric:
+            return UIImage(named: "Types-Eletric")!
+        case .fairy:
+            return UIImage(named: "Types-Fairy")!
+        case .fighting:
+            return UIImage(named: "Types-Fighting")!
+        case .fire:
+            return UIImage(named: "Types-Fire")!
+        case .flying:
+            return UIImage(named: "Types-Flying")!
+        case .ghost:
+            return UIImage(named: "Types-Ghost")!
+        case .grass:
+            return UIImage(named: "Types-Grass")!
+        case .ground:
+            return UIImage(named: "Types-Ground")!
+        case .ice:
+            return UIImage(named: "Types-Ice")!
+        case .normal:
+            return UIImage(named: "Types-Normal")!
+        case .poison:
+            return UIImage(named: "Types-Poison")!
+        case .psychic:
+            return UIImage(named: "Types-Psychic")!
+        case .steel:
+            return UIImage(named: "Types-Steel")!
+        case .water:
+            return UIImage(named: "Types-Water")!
+        }
+        
+    }
 }

@@ -14,6 +14,10 @@ class PokemonTableViewCell: UITableViewCell {
     @IBOutlet weak var imageViewPokemon: UIImageView!
     @IBOutlet weak var labelId: UILabel!
     @IBOutlet weak var labelPokemonName: UILabel!
+    @IBOutlet weak var stackViewTypes: UIStackView!
+   
+    @IBOutlet weak var imageViewTypeLeft: UIImageView!
+    @IBOutlet weak var imageViewTypeRight: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,9 +31,15 @@ class PokemonTableViewCell: UITableViewCell {
     }
     
     func bind(pokemon: PokemonView) {
-        self.labelId.text = "#\(pokemon.id)"
+        self.labelId.text = PokemonViewModel.getIdPokemonString(pokemonView: pokemon)
         self.labelPokemonName.text = pokemon.name
         self.imageViewPokemon.setImage(with: pokemon.image)
+        
+        if (pokemon.types.count < 2) {
+            self.imageViewTypeLeft.isHidden = true
+            self.imageViewTypeRight.image = TypeViewModel.getImageType(pokemon.types[0].name)
+        }
+            
     }
     
 }

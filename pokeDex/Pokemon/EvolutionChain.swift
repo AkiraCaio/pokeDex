@@ -28,6 +28,5 @@ class EvolutionChain: Object, Mappable {
         self.id.value                                                  <- map["id"]
         self.pokemonBaseName                                           <- map["chain.species.name"]
         self.evoluiPara                                                <- (map["chain.evolves_to"], ListTransform<EvoluiPara>())
-        print("")
     }
 }

@@ -137,8 +137,20 @@ class PokemonViewModel {
     
     static func getIdEvolutionChain(url: String) -> Int {
         
-        var componets = url.components(separatedBy: "/")
+        let componets = url.components(separatedBy: "/")
         return Int(componets[componets.count - 2]) ?? 0
+    }
+    
+    static func getIdPokemonString(pokemonView: PokemonView) -> String{
+      
+        if (pokemonView.id < 10) {
+            return "#00\(pokemonView.id)"
+        }else if (pokemonView.id < 100) {
+            return "#0\(pokemonView.id)"
+        }else{
+            return "#\(pokemonView.id)"
+        }
+        
     }
     
     //    static func getAsModel(postView: PostView) -> Post {
