@@ -18,7 +18,7 @@ class PokemonTableViewCell: UITableViewCell {
     @IBOutlet weak var imageViewTypeLeft: UIImageView!
     @IBOutlet weak var imageViewTypeRight: UIImageView!
     
-    @IBOutlet weak var favButton: UIButton!
+    @IBOutlet weak var favView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +26,6 @@ class PokemonTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         
         self.configFavButton()
-        
     }
     
     func bind(pokemon: PokemonView) {
@@ -47,29 +46,36 @@ class PokemonTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func favAction(_ sender: Any) {
-        
-        
-        
-    }
-    
-    //WIP
+    //TODO: Organizar esse metodo e criar o metodo para reconhecer o tap na view/image do favoritos.
     private func configFavButton() {
         
-        self.favButton.layer.cornerRadius = self.favButton.frame.height / 2
-        self.favButton.clipsToBounds = true
+        self.favView.layer.cornerRadius = self.favView.frame.height / 2
+        self.favView.clipsToBounds = true
         
         let colorTop = UIColor(red: 221 / 255, green: 62 / 255, blue: 62 / 255, alpha: 1).cgColor
         let colorBottom = UIColor(red: 133 / 255, green: 69 / 255, blue: 37 / 255, alpha: 1).cgColor
         
         let gl = CAGradientLayer()
-        gl.frame = self.favButton.bounds
+        gl.frame = self.favView.bounds
         gl.colors = [colorTop, colorBottom]
         gl.locations = [0.0, 1.0]
         
-//        self.favButton.layer.addSublayer(gl)
         
-        self.favButton.layer.insertSublayer(gl, at: 0)
+        self.favView.layer.insertSublayer(gl, at: 0)
+        
+        let image = UIImageView(image: UIImage(named: "pokebolaFavorito"))
+        image.tintColor = UIColor.black
+        image.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.favView.addSubview(image)
+        
+        NSLayoutConstraint.activate([
+            image.centerYAnchor.constraint(equalTo: self.favView.centerYAnchor),
+            image.centerXAnchor.constraint(equalTo: self.favView.centerXAnchor),
+            image.heightAnchor.constraint(equalToConstant: 60),
+            image.widthAnchor.constraint(equalToConstant: 60)
+        ])
+        
     }
     
     
