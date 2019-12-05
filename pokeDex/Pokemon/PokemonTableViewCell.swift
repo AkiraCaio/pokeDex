@@ -10,12 +10,11 @@ import UIKit
 import Kingfisher
 
 class PokemonTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var imageViewPokemon: UIImageView!
     @IBOutlet weak var labelId: UILabel!
     @IBOutlet weak var labelPokemonName: UILabel!
-    @IBOutlet weak var stackViewTypes: UIStackView!
-   
+    
     @IBOutlet weak var imageViewTypeLeft: UIImageView!
     @IBOutlet weak var imageViewTypeRight: UIImageView!
     
@@ -23,23 +22,27 @@ class PokemonTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.selectionStyle = .none
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
+        
     }
     
     func bind(pokemon: PokemonView) {
+        
         self.labelId.text = PokemonViewModel.getIdPokemonString(pokemonView: pokemon)
         self.labelPokemonName.text = pokemon.name
         self.imageViewPokemon.setImage(with: pokemon.image)
         
         if (pokemon.types.count < 2) {
             self.imageViewTypeLeft.isHidden = true
-            self.imageViewTypeRight.image = TypeViewModel.getImageType(pokemon.types[0].name)
-        }
             
+            self.imageViewTypeRight.image = TypeViewModel.getImageType(pokemon.types[0].name)
+        }else{
+            self.imageViewTypeLeft.isHidden = false
+
+            self.imageViewTypeRight.image = TypeViewModel.getImageType(pokemon.types[0].name)
+            self.imageViewTypeLeft.image = TypeViewModel.getImageType(pokemon.types[1].name)
+        }
+        
+        
     }
     
 }

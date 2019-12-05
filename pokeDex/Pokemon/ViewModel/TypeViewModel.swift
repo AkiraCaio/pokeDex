@@ -104,7 +104,7 @@ class TypeViewModel {
         case .fairy:
             return UIImage(named: "Types-Fairy")!
         case .fighting:
-            return UIImage(named: "Types-Fighting")!
+            return UIImage(named: "Types-Fight")!
         case .fire:
             return UIImage(named: "Types-Fire")!
         case .flying:
