@@ -23,8 +23,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="243" height="84"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Pokemon" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHJ-J2-Q7c">
-                                        <rect key="frame" x="86" y="16" width="157" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="86" y="16" width="157" height="26"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -36,9 +36,9 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hdx-uq-Rzg">
-                                        <rect key="frame" x="86" y="47.5" width="149" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="86" y="50" width="149" height="18"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                        <color key="textColor" red="0.64313725490196072" green="0.64313725490196072" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -82,13 +82,17 @@
                                     <constraint firstItem="uT3-fF-OJ5" firstAttribute="leading" secondItem="Hi2-Hk-bz8" secondAttribute="leading" id="ksa-0x-KU5"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJK-q9-rTJ">
+                            <button clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJK-q9-rTJ">
                                 <rect key="frame" x="375" y="17" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="53v-Nh-KwY"/>
                                     <constraint firstAttribute="width" constant="50" id="Xfj-vb-ZzH"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="pokebolaFavorito"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="pokebolaFavorito"/>
+                                <connections>
+                                    <action selector="favAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MEq-Q4-kYX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -114,6 +118,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="favButton" destination="SJK-q9-rTJ" id="gvJ-Ip-M9l"/>
                 <outlet property="imageViewPokemon" destination="BIU-Xr-FfV" id="4tg-jq-1s2"/>
                 <outlet property="imageViewTypeLeft" destination="uT3-fF-OJ5" id="Ira-mI-QS8"/>
                 <outlet property="imageViewTypeRight" destination="ueB-9W-NiH" id="1rO-NR-2hs"/>
