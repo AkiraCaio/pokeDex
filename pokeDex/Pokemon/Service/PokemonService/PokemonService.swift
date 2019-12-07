@@ -31,7 +31,7 @@ class PokemonService {
                 
             case .success:
                 if let pokemon = response.result.value {
-                    PokemonViewModel.save(object: pokemon)
+                    PokemonViewModel.save(pokemon: pokemon)
                 }
                 
                 self.delegate.success(isFinished: isFinished)
@@ -51,12 +51,6 @@ class PokemonService {
             case .success:
                 
                 if let pokemons = response.result.value {
-                    
-                    if number == 0 {
-                        PokemonViewModel.clear()
-                    }
-                    
-                    PokemonViewModel.saveAll(objects: pokemons)
                     
                     for index in 1 ... pokemons.count {
                         self.getPokemon(id: (index + number), isFinished: pokemons.count < 20)

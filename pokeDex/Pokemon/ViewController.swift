@@ -27,12 +27,6 @@ class ViewController: UIViewController {
         self.setupTableView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.pokemons = PokemonViewModel.getAll()
-    }
-    
     private func configService() {
         self.service = PokemonService(delegate: self)
         
@@ -54,9 +48,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonTableViewCell") as! PokemonTableViewCell
         
+        cell.delegate = self
         cell.bind(pokemon: self.pokemons[indexPath.row])
         
         return cell
@@ -109,6 +104,11 @@ extension ViewController: PokemonServiceDelegate {
         
         self.tableView.reloadData()
     }
-    
+}
+
+extension ViewController: PokemonTableViewCellDelegate {
+    func atualizaFavPok(favorito: Bool, id: Int) {
+        self.pokemons[ (id-1) ].favorito = favorito
+    }
     
 }

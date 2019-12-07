@@ -25,9 +25,22 @@ struct PokemonView {
 
 class PokemonViewModel {
     
-    static func save(object: Pokemon){
-        try? uiRealm.write {
-            uiRealm.add(object, update: .all)
+    static func save(pokemon: Pokemon){
+        
+        let result = self.get(by: pokemon.name!)
+        
+        if let pokemonFound = result {
+            try? uiRealm.write {
+                
+                pokemon.favorito = pokemonFound.favorito
+                
+                uiRealm.add(pokemon, update: .all)
+            }
+            
+        }else {
+            try? uiRealm.write {
+                uiRealm.add(pokemon, update: .all)
+            }
         }
     }
     
@@ -43,7 +56,20 @@ class PokemonViewModel {
             }
         }
     }
+    
+    static func save(nomePokemon: String, favorito: Bool) {
+        let results = self.get(by: nomePokemon)
         
+        if let pokemon = results {
+            
+            try? uiRealm.write {
+                pokemon.favorito = favorito
+                
+                uiRealm.add(pokemon, update: .all)
+            }
+        }
+    }
+    
     static func clear() {
         try? uiRealm.write{
             uiRealm.delete(uiRealm.objects(Pokemon.self))
@@ -142,7 +168,7 @@ class PokemonViewModel {
     }
     
     static func getIdPokemonString(pokemonView: PokemonView) -> String{
-      
+        
         if (pokemonView.id < 10) {
             return "#00\(pokemonView.id)"
         }else if (pokemonView.id < 100) {
@@ -153,20 +179,18 @@ class PokemonViewModel {
         
     }
     
-    //    static func getAsModel(postView: PostView) -> Post {
-    //        let post = Post()
+    //    static func getAsModel(pokemonView: PokemonView) -> Pokemon {
+    //        let pokemon = Pokemon()
     //
-    //        post.id.value = postView.id
-    //        post.criado_em.value = postView.criado_em
-    //        post.curtidas.value = postView.curtidas
-    //        post.mensagem = postView.message
-    //        post.author = postView.author
-    //        post.curtido.value = postView.curtido
+    //        pokemon.id.value = pokemonView.id
+    //        pokemon.name = pokemonView.name
+    //        pokemon.favorito = pokemonView.favorito
+    //        pokemon.height.value = pokemonView.height
+    //        pokemon.weight.value = pokemonView.weight
+    //        pokemon.abilities =
     //
-    //        return post
+    //        return pokemon
     //    }
-    //
-    //
     
     
 }
