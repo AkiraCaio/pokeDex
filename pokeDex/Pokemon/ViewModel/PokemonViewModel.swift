@@ -161,6 +161,10 @@ class PokemonViewModel {
         return self.getAsView(pokemons: self.get())
     }
     
+    static func getFav() -> [PokemonView] {
+        return self.getAsView(pokemons: self.get().filter{$0.favorito})
+    }
+    
     static func getIdEvolutionChain(url: String) -> Int {
         
         let componets = url.components(separatedBy: "/")

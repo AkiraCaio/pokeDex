@@ -78,9 +78,9 @@ class PokemonTableViewCell: UITableViewCell {
             
             self.pokemon?.favorito = !pokemon.favorito
             
-            self.delegate.atualizaFavPok(favorito: !pokemon.favorito, id: pokemon.id)
-            
             PokemonViewModel.save(nomePokemon: pokemon.name, favorito: !pokemon.favorito)
+            
+            self.delegate.atualizaFavPok(favorito: !pokemon.favorito, id: pokemon.id)            
             
             self.pintaComoEuPinto()
         }

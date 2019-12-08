@@ -18,8 +18,18 @@ class ViewController: UIViewController {
     
     var qtdLoadedPokemons = 0
     
-    @IBOutlet weak var tableView: UITableView!
+    var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        return tableView
+    }()
     
+    var favOnly: Bool = false
+    var editMode: Bool = false
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,8 +46,20 @@ class ViewController: UIViewController {
     private func setupTableView() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
+                
         self.tableView.register(UINib(nibName: "PokemonTableViewCell", bundle: nil), forCellReuseIdentifier: "PokemonTableViewCell")
+        
+        self.view.addSubview(self.tableView)
+        
+        self.tableView.separatorStyle = .none
+
+        NSLayoutConstraint.activate([
+            self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor)
+        ])
+        
     }
 }
 
@@ -59,10 +81,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if indexPath.row == self.pokemons.count - 1, !self.isFinished {
-            
-            self.service.getPokemons(number: self.pokemons.count)
+        if (!self.favOnly && !self.editMode) {
+            if indexPath.row == self.pokemons.count - 1, !self.isFinished {
+                
+                self.service.getPokemons(number: self.pokemons.count)
+            }
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -74,8 +99,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 85
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header =  HeaderTableView(frame: CGRect(x: 0, y: 0, width: 500, height: 90))
+        
+        header.delegate = self
+        header.showFav = self.favOnly
+                
+        return header
+    }
+    
 }
 
 extension ViewController: PokemonServiceDelegate {
@@ -85,17 +120,20 @@ extension ViewController: PokemonServiceDelegate {
     
     func success(isFinished: Bool) {
         
-        self.isFinished = isFinished
-        
-        self.qtdLoadedPokemons += 1
-        
-        if qtdLoadedPokemons == 20 {
-            self.pokemons = PokemonViewModel.getAll()
+        if(!self.favOnly && !self.editMode) {
+            self.isFinished = isFinished
             
-            self.tableView.reloadData()
+            self.qtdLoadedPokemons += 1
             
-            self.qtdLoadedPokemons = 0
+            if qtdLoadedPokemons == 20 {
+                self.pokemons = PokemonViewModel.getAll()
+                
+                self.tableView.reloadData()
+                
+                self.qtdLoadedPokemons = 0
+            }
         }
+        
     }
     
     func failure(erro: String) {
@@ -108,7 +146,39 @@ extension ViewController: PokemonServiceDelegate {
 
 extension ViewController: PokemonTableViewCellDelegate {
     func atualizaFavPok(favorito: Bool, id: Int) {
-        self.pokemons[ (id-1) ].favorito = favorito
+        
+        if(self.favOnly){
+            self.pokemons = PokemonViewModel.getFav()
+            self.tableView.reloadData()
+        }else{
+            self.pokemons[ (id-1) ].favorito = favorito
+        }
+        
     }
+    
+}
+
+extension ViewController: HeaderTableViewDelegate {
+    func filterPokm(text: String) {
+        if text.isEmpty {
+            self.editMode = false
+            self.pokemons = self.favOnly ? PokemonViewModel.getFav() : PokemonViewModel.getAll()
+        }else{
+            self.editMode = true
+            self.pokemons = self.favOnly ? PokemonViewModel.getFav().filter {$0.name.contains(text)} : PokemonViewModel.getAll().filter {$0.name.contains(text)}
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func actionFav(fav: Bool) {
+        
+        
+        self.pokemons = fav ? PokemonViewModel.getFav() : PokemonViewModel.getAll()
+        self.favOnly = fav
+        
+        self.tableView.reloadData()
+    }
+    
     
 }
