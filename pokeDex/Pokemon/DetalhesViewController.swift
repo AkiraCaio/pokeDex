@@ -35,15 +35,17 @@ class DetalhesViewController: UIViewController {
     }
     
     private func configScreen() {
+        
         if let pokemon = self.pokemon {
+            self.title = pokemon.name.firstUppercased
             
-            self.title = pokemon.name
+            self.view.backgroundColor = TypeViewModel.getColorType(pokemon.types.count == 2 ? pokemon.types[1].name : pokemon.types[0].name)
+            
             
         }
             
         
     }
-    
     
 }
 

@@ -173,7 +173,6 @@ extension ViewController: HeaderTableViewDelegate {
     
     func actionFav(fav: Bool) {
         
-        
         self.pokemons = fav ? PokemonViewModel.getFav() : PokemonViewModel.getAll()
         self.favOnly = fav
         

@@ -18,7 +18,7 @@ enum TypeEnum: String {
     case bug
     case dark
     case dragon
-    case eletric
+    case electric
     case fairy
     case fighting
     case fire
@@ -30,6 +30,7 @@ enum TypeEnum: String {
     case normal
     case poison
     case psychic
+    case rock
     case steel
     case water
 }
@@ -89,6 +90,48 @@ class TypeViewModel {
         return typesView
     }
     
+    static func getColorType(_ type: TypeEnum) -> UIColor{
+        switch type {
+            
+        case .bug:
+            return Colors.hexStringToUIColor(hex: "#92BC2C")
+        case .dark:
+            return Colors.hexStringToUIColor(hex: "#595761")
+        case .dragon:
+            return Colors.hexStringToUIColor(hex: "#0C69C8")
+        case .electric:
+            return Colors.hexStringToUIColor(hex: "#EDD53E")
+        case .fairy:
+            return Colors.hexStringToUIColor(hex: "#EC8CE5")
+        case .fighting:
+            return Colors.hexStringToUIColor(hex: "#CE4265")
+        case .fire:
+            return Colors.hexStringToUIColor(hex: "#FB9B51")
+        case .flying:
+            return Colors.hexStringToUIColor(hex: "#90A7DA")
+        case .ghost:
+            return Colors.hexStringToUIColor(hex: "#516AAC")
+        case .grass:
+            return Colors.hexStringToUIColor(hex: "#5FBC51")
+        case .ground:
+            return Colors.hexStringToUIColor(hex: "#DC7545")
+        case .ice:
+            return Colors.hexStringToUIColor(hex: "#70CCBD")
+        case .normal:
+            return Colors.hexStringToUIColor(hex: "#9298A4")
+        case .poison:
+            return Colors.hexStringToUIColor(hex: "#A864C7")
+        case .psychic:
+            return Colors.hexStringToUIColor(hex: "#F66F71")
+        case .rock:
+            return Colors.hexStringToUIColor(hex: "#C5B489")
+        case .steel:
+            return Colors.hexStringToUIColor(hex: "#52869D")
+        case .water:
+            return Colors.hexStringToUIColor(hex: "#559EDF")
+        }
+    }
+    
     static func getImageType(_ type: TypeEnum) -> UIImage{
         
         switch type {
@@ -99,8 +142,8 @@ class TypeViewModel {
             return UIImage(named: "Types-Dark")!
         case .dragon:
             return UIImage(named: "Types-Dragon")!
-        case .eletric:
-            return UIImage(named: "Types-Eletric")!
+        case .electric:
+            return UIImage(named: "Types-Electric")!
         case .fairy:
             return UIImage(named: "Types-Fairy")!
         case .fighting:
@@ -123,6 +166,8 @@ class TypeViewModel {
             return UIImage(named: "Types-Poison")!
         case .psychic:
             return UIImage(named: "Types-Psychic")!
+        case .rock:
+            return UIImage(named: "Types-Rock")!
         case .steel:
             return UIImage(named: "Types-Steel")!
         case .water:

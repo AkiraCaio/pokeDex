@@ -158,11 +158,12 @@ class PokemonViewModel {
     }
     
     static func getAll() -> [PokemonView] {
-        return self.getAsView(pokemons: self.get())
+        
+        return self.getAsView(pokemons: self.get()).sorted(by: { $0.id < $1.id })
     }
     
     static func getFav() -> [PokemonView] {
-        return self.getAsView(pokemons: self.get().filter{$0.favorito})
+        return self.getAsView(pokemons: self.get().filter{$0.favorito}).sorted(by: { $0.id < $1.id })
     }
     
     static func getIdEvolutionChain(url: String) -> Int {
