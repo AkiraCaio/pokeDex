@@ -91,6 +91,19 @@ class DetalhesViewController: UIViewController {
         return view
     }()
     
+    var pokemonShareButton: UIButton = {
+        let button = UIButton()
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.setImage(#imageLiteral(resourceName: "shareIcon"), for: .normal)
+        
+        button.addTarget(self, action: #selector(DetalhesViewController.sharePokemon), for: .touchDown)
+        
+        return button
+    }()
+    
+    
     var pokemonEvolutionViews: [UIView] = []
     
     override func viewDidLoad() {
@@ -119,25 +132,30 @@ class DetalhesViewController: UIViewController {
             
             self.view.backgroundColor = TypeViewModel.getColorType(pokemon.types)
             
+            self.configPokemonShareButton()
             self.configPokemonView(image: pokemon.image)
             self.configPokemonInfoView()
             self.configPokemonLabel(name: pokemon.name.firstUppercased)
             self.configTypeImageView(types: pokemon.types)
             self.configPokemonSegmentController(types: pokemon.types)
             self.configPokemonStatusView(pokemonStatus: pokemon.status)
-            
-            
-            self.pokemonInfoView.addSubview(self.pokemonEvolutionView)
-                        
-            NSLayoutConstraint.activate([
-                self.pokemonEvolutionView.leftAnchor.constraint(equalTo: self.pokemonInfoView.leftAnchor, constant: 16),
-                self.pokemonEvolutionView.rightAnchor.constraint(equalTo: self.pokemonInfoView.rightAnchor, constant: -16),
-                self.pokemonEvolutionView.topAnchor.constraint(equalTo: self.pokemonSegmentController.bottomAnchor, constant: 16),
-                self.pokemonEvolutionView.bottomAnchor.constraint(equalTo: self.pokemonInfoView.bottomAnchor, constant: -32)
-            ])
-            
+            self.configPokemonEvolutionView()
             
         }
+    }
+    
+    
+    
+    private func configPokemonEvolutionView() {
+
+        self.pokemonInfoView.addSubview(self.pokemonEvolutionView)
+                    
+        NSLayoutConstraint.activate([
+            self.pokemonEvolutionView.leftAnchor.constraint(equalTo: self.pokemonInfoView.leftAnchor, constant: 16),
+            self.pokemonEvolutionView.rightAnchor.constraint(equalTo: self.pokemonInfoView.rightAnchor, constant: -16),
+            self.pokemonEvolutionView.topAnchor.constraint(equalTo: self.pokemonSegmentController.bottomAnchor, constant: 16),
+            self.pokemonEvolutionView.bottomAnchor.constraint(equalTo: self.pokemonInfoView.bottomAnchor, constant: -32)
+        ])
     }
     
     //TODO: Atualizar o modelo para pegar as informacoes de level
@@ -247,7 +265,9 @@ class DetalhesViewController: UIViewController {
         let lblName = UILabel()
         lblName.text = statusName
         lblName.textColor = .blue
+        lblName.font = UIFont(name: "Avenir-Heavy", size: 16)!
         
+
         lblName.translatesAutoresizingMaskIntoConstraints = false
         
         viewInterna.addSubview(lblName)
@@ -264,6 +284,7 @@ class DetalhesViewController: UIViewController {
         
         lblStatusValue.translatesAutoresizingMaskIntoConstraints = false
         lblStatusValue.text = statusValue
+        lblStatusValue.font = UIFont(name: "Avenir-Book", size: 20)!
         
         viewInterna.addSubview(lblStatusValue)
         
@@ -293,6 +314,25 @@ class DetalhesViewController: UIViewController {
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         UISegmentedControl.appearance().setTitleTextAttributes(titleTextAttributes, for: .selected)
         
+    }
+    
+    private func configPokemonShareButton() {
+        self.view.addSubview(self.pokemonShareButton)
+        
+        NSLayoutConstraint.activate([
+            self.pokemonShareButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 16),
+            self.pokemonShareButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -16),
+        ])
+        
+        
+    }
+
+    @objc private func sharePokemon() {
+        
+        let act = UIActivityViewController(activityItems: ["Achei esse pokemon muito massa e quero compartilhar com você: \(pokemon!.name.firstUppercased) \(PokemonViewModel.getIdPokemonString(pokemonView: self.pokemon!))"], applicationActivities: nil)
+        act.popoverPresentationController?.sourceView = self.view
+        
+        self.present(act, animated: true, completion: nil)
     }
     
     @objc private func indexChanged(_ sender: UISegmentedControl) {

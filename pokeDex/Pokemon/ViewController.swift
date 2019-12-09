@@ -27,6 +27,28 @@ class ViewController: UIViewController {
         return tableView
     }()
     
+    var viewFloatingButton: UIView = {
+        let view = UIView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.backgroundColor = .black
+        
+        view.layer.cornerRadius  = 25
+                
+        return view
+    }()
+    
+    var floatingButton: UIButton = {
+        let button = UIButton()
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "topArrow"), for: .normal)
+        button.addTarget(self, action: #selector(ViewController.showTopTableView), for: .touchDown)
+        
+        return button
+    }()
+    
     var favOnly: Bool = false
     var editMode: Bool = false
         
@@ -37,8 +59,36 @@ class ViewController: UIViewController {
         
         self.configService()
         self.setupTableView()
+        self.configFloatingButton()
     }
     
+    
+    private func configFloatingButton() {
+        
+        self.view.addSubview(self.viewFloatingButton)
+        
+        NSLayoutConstraint.activate([
+            self.viewFloatingButton.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -128),
+            self.viewFloatingButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+            self.viewFloatingButton.widthAnchor.constraint(equalToConstant: 50),
+            self.viewFloatingButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        self.view.bringSubviewToFront(self.viewFloatingButton)
+        
+        
+        self.viewFloatingButton.addSubview(self.floatingButton)
+        
+        NSLayoutConstraint.activate([
+            self.floatingButton.topAnchor.constraint(equalTo: self.viewFloatingButton.topAnchor, constant: 0),
+            self.floatingButton.leftAnchor.constraint(equalTo: self.viewFloatingButton.leftAnchor, constant: 0),
+            self.floatingButton.rightAnchor.constraint(equalTo: self.viewFloatingButton.rightAnchor, constant: 0),
+            self.floatingButton.bottomAnchor.constraint(equalTo: self.viewFloatingButton.bottomAnchor, constant: 0),
+
+        ])
+        
+        
+    }
     private func configService() {
         self.service = PokemonService(delegate: self)
         
@@ -62,6 +112,10 @@ class ViewController: UIViewController {
             self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor)
         ])
         
+    }
+    
+    @objc private func showTopTableView() {
+        self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
 }
 
@@ -98,7 +152,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         controller.pokemon = self.pokemons[indexPath.row]
         
         self.present(controller, animated: true)
-//        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
