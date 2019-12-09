@@ -90,7 +90,11 @@ class TypeViewModel {
         return typesView
     }
     
-    static func getColorType(_ type: TypeEnum) -> UIColor{
+    static func getColorType(_ types: [TypeView]) -> UIColor {
+        return types.count == 2 ? self.getColorType(types[1].name) : self.getColorType(types[0].name)
+    }
+    
+    static private func getColorType(_ type: TypeEnum) -> UIColor{
         switch type {
             
         case .bug:
@@ -129,6 +133,49 @@ class TypeViewModel {
             return Colors.hexStringToUIColor(hex: "#52869D")
         case .water:
             return Colors.hexStringToUIColor(hex: "#559EDF")
+        }
+    }
+    
+    static func getImageTag(_ type: TypeEnum) -> UIImage{
+        
+        switch type {
+            
+        case .bug:
+            return UIImage(named: "Tag-Bug")!
+        case .dark:
+            return UIImage(named: "Tag-Dark")!
+        case .dragon:
+            return UIImage(named: "Tag-Dragon")!
+        case .electric:
+            return UIImage(named: "Tag-Electric")!
+        case .fairy:
+            return UIImage(named: "Tag-Fairy")!
+        case .fighting:
+            return UIImage(named: "Tag-Fight")!
+        case .fire:
+            return UIImage(named: "Tag-Fire")!
+        case .flying:
+            return UIImage(named: "Tag-Flying")!
+        case .ghost:
+            return UIImage(named: "Tag-Ghost")!
+        case .grass:
+            return UIImage(named: "Tag-Grass")!
+        case .ground:
+            return UIImage(named: "Tag-Ground")!
+        case .ice:
+            return UIImage(named: "Tag-Ice")!
+        case .normal:
+            return UIImage(named: "Tag-Normal")!
+        case .poison:
+            return UIImage(named: "Tag-Poison")!
+        case .psychic:
+            return UIImage(named: "Tag-Psychic")!
+        case .rock:
+            return UIImage(named: "Tag-Rock")!
+        case .steel:
+            return UIImage(named: "Tag-Steel")!
+        case .water:
+            return UIImage(named: "Tag-Water")!
         }
     }
     
@@ -173,6 +220,5 @@ class TypeViewModel {
         case .water:
             return UIImage(named: "Types-Water")!
         }
-        
     }
 }

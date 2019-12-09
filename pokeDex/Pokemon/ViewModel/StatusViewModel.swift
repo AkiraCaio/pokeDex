@@ -11,8 +11,17 @@ import RealmSwift
 
 struct StatusView {
     
-    var name: String = ""
+    var name: StatusEnum = .HP
     var baseStat: Int = 0
+}
+
+enum StatusEnum: String {
+    case SPD
+    case SDEF
+    case SATK
+    case DEF
+    case ATK
+    case HP
 }
 
 class StatusViewModel {
@@ -43,7 +52,7 @@ class StatusViewModel {
 
         var statusView = StatusView()
         
-        statusView.name = status.name ?? "-"
+        statusView.name = self.getStatusEnum(name: status.name!)
         statusView.baseStat = status.baseStat.value ?? 0
 
         return statusView
@@ -71,4 +80,32 @@ class StatusViewModel {
         return statusViewArray
     }
     
+    static private func getStatusEnum (name: String) -> StatusEnum {
+        switch name {
+        case "speed":
+            return StatusEnum.SPD
+        case "special-defense":
+            return StatusEnum.SDEF
+        case "special-attack":
+            return StatusEnum.SATK
+        case "defense":
+            return StatusEnum.DEF
+        case "attack":
+            return StatusEnum.ATK
+        case "hp":
+            return StatusEnum.HP
+        default:
+            return StatusEnum.HP
+        }
+    }
+    
+    static func getBaseStatusString(number: Int) -> String {
+        if (number >= 100){
+            return "\(number)"
+        }else if (number >= 10){
+            return "0\(number)"
+        }else{
+            return "00\(number)"
+        }
+    }
 }

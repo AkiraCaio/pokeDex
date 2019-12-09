@@ -10,7 +10,8 @@ import Foundation
 import RealmSwift
 
 struct EvolutionChainView {
-    var pokemonName:String = ""
+    var pokemonName: String = ""
+    var pokemonID: String = ""
     var evoluiPara: [EvoluiParaView] = []
 }
 
@@ -38,9 +39,71 @@ class EvolutionChainViewModel {
         var evolutionChainView = EvolutionChainView()
         
         evolutionChainView.pokemonName = evolutionChain.pokemonBaseName ?? "-"
+        evolutionChainView.pokemonID = evolutionChain.url ?? "-"
         evolutionChainView.evoluiPara = EvoluiParaViewModel.getAsView(evoluiParaArray: evolutionChain.evoluiPara)
         
         return evolutionChainView
     }
+    
+    //TODO: Criar uma metodo para nao precisar ficar criando mais loops dentro da funcao
+    
+    static func getEvolutionPokemon(evolutionChain: EvolutionChainView) -> [[PokemonView]] {
+        var evolutions: [[PokemonView]] = []
+        
+        if (!evolutionChain.evoluiPara.isEmpty) {
+            
+            for pokemon in evolutionChain.evoluiPara {
+                evolutions.append( [PokemonViewModel.getPokemonView(id: evolutionChain.pokemonName), PokemonViewModel.getPokemonView(id: pokemon.pokemonName)] )
+                
+                if (!pokemon.evoluiPara.isEmpty){
+                    for pokemonInterno in pokemon.evoluiPara {
+                        evolutions.append( [PokemonViewModel.getPokemonView(id: pokemon.pokemonName), PokemonViewModel.getPokemonView(id: pokemonInterno.pokemonName)] )
+                        
+                        
+                        if (!pokemonInterno.evoluiPara.isEmpty) {
+                            for pokemonInterno2 in pokemonInterno.evoluiPara {
+                                evolutions.append( [PokemonViewModel.getPokemonView(id: pokemonInterno.pokemonName), PokemonViewModel.getPokemonView(id: pokemonInterno2.pokemonName)] )
+                            }
+                            
+                        }
+                    }
+                    
+                    
+                }
+            }
+        }
+        
+        return evolutions
+    }
+    
+//    static func getEvlotuionPokemonID(evolutionChain: EvolutionChainView) -> [[PokemonView]] {
+//        var evolutions: [[PokemonView]] = []
+//
+//        if (!evolutionChain.evoluiPara.isEmpty) {
+//
+//            for pokemon in evolutionChain.evoluiPara {
+//                evolutions.append( [PokemonViewModel.getPokemonView(id: evolutionChain.pokemonName), PokemonViewModel.getPokemonView(id: pokemon.pokemonName)] )
+//
+//                if (!pokemon.evoluiPara.isEmpty){
+//                    for pokemonInterno in pokemon.evoluiPara {
+//                        evolutions.append( [PokemonViewModel.getPokemonView(id: pokemon.pokemonName), PokemonViewModel.getPokemonView(id: pokemonInterno.pokemonName)] )
+//
+//
+//                        if (!pokemonInterno.evoluiPara.isEmpty) {
+//                            for pokemonInterno2 in pokemonInterno.evoluiPara {
+//                                evolutions.append( [PokemonViewModel.getPokemonView(id: pokemonInterno.pokemonName), PokemonViewModel.getPokemonView(id: pokemonInterno2.pokemonName)] )
+//                            }
+//
+//                        }
+//                    }
+//
+//
+//                }
+//            }
+//        }
+//
+//        return evolutions
+//    }
+    
     
 }

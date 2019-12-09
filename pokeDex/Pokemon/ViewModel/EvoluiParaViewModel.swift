@@ -11,6 +11,7 @@ import RealmSwift
 
 struct EvoluiParaView {
     var pokemonName:String = ""
+    var pokemonID = ""
     var evoluiPara: [EvoluiParaView] = []
 }
 
@@ -25,6 +26,7 @@ class EvoluiParaViewModel {
         var evoluiParaView = EvoluiParaView()
         
         evoluiParaView.pokemonName = evoluiPara.pokemonBaseName ?? "-"
+        evoluiParaView.pokemonID = evoluiPara.url ?? "-"
         evoluiParaView.evoluiPara = EvoluiParaViewModel.getAsView(evoluiParaArray: evoluiPara.evoluiPara)
 
         return evoluiParaView

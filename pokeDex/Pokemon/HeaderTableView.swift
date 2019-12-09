@@ -98,6 +98,20 @@ class HeaderTableView: UIView {
         self.favView.layer.cornerRadius = 55 / 2
         self.favView.clipsToBounds = true
         
+        
+        if (self.showFav) {
+            
+            let colorTop = UIColor(red: 221 / 255, green: 62 / 255, blue: 62 / 255, alpha: 1).cgColor
+            let colorBottom = UIColor(red: 133 / 255, green: 69 / 255, blue: 37 / 255, alpha: 1).cgColor
+            
+            self.gradientFavImage.frame = self.favView.bounds
+            self.gradientFavImage.colors = [colorTop, colorBottom]
+            self.gradientFavImage.locations = [0.0, 1.0]
+            
+            self.favView.layer.insertSublayer(self.gradientFavImage, at: 0)
+            
+            
+        }
     }
     
     private func configImage() {
@@ -110,14 +124,31 @@ class HeaderTableView: UIView {
             self.imageView.heightAnchor.constraint(equalToConstant: 60),
             self.imageView.widthAnchor.constraint(equalToConstant: 60)
         ])
-
+                
         self.favView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(HeaderTableView.favAction)))
-
     }
     
     @objc private func favAction() {
         self.showFav = !self.showFav
+        
         self.searcBar.text = ""
+        
+        if (self.showFav) {
+            
+            let colorTop = UIColor(red: 221 / 255, green: 62 / 255, blue: 62 / 255, alpha: 1).cgColor
+            let colorBottom = UIColor(red: 133 / 255, green: 69 / 255, blue: 37 / 255, alpha: 1).cgColor
+            
+            self.gradientFavImage.frame = self.favView.bounds
+            self.gradientFavImage.colors = [colorTop, colorBottom]
+            self.gradientFavImage.locations = [0.0, 1.0]
+            
+            self.favView.layer.insertSublayer(self.gradientFavImage, at: 0)
+            
+            
+        }else {
+            self.gradientFavImage.removeFromSuperlayer()
+        }
+                
         self.delegate.actionFav(fav: self.showFav)
     }
 }

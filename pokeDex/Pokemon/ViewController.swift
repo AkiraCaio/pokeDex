@@ -33,6 +33,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        
         self.configService()
         self.setupTableView()
     }
@@ -95,7 +97,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         controller.pokemon = self.pokemons[indexPath.row]
         
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true)
+//        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -110,6 +113,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 
         return header
     }
+    
     
 }
 
@@ -151,9 +155,16 @@ extension ViewController: PokemonTableViewCellDelegate {
             self.pokemons = PokemonViewModel.getFav()
             self.tableView.reloadData()
         }else{
-            self.pokemons[ (id-1) ].favorito = favorito
+            
+            let index = self.pokemons.firstIndex(where: {$0.id == id})!
+            
+            var newPokemon = self.pokemons[index]
+            newPokemon.favorito = favorito
+            
+            self.pokemons.remove(at: index)
+            
+            self.pokemons.insert(newPokemon, at: index)
         }
-        
     }
     
 }

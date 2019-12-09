@@ -12,8 +12,8 @@ import AlamofireObjectMapper
 
 protocol SpecieServiceDelegate{
     
-    func success()
-    func failure(erro: String)
+    func sucessSpecie()
+    func failureSpecie(erro: String)
 }
 
 class SpecieService {
@@ -35,10 +35,10 @@ class SpecieService {
                     
                     
                 }
-                self.delegate.success()
+                self.delegate.sucessSpecie()
                 
             case .failure(let erro):
-                self.delegate.failure(erro: erro.localizedDescription)
+                self.delegate.failureSpecie(erro: erro.localizedDescription)
             }
             
         }

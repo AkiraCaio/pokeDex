@@ -13,6 +13,7 @@ import RealmSwift
 class EvoluiPara: Object, Mappable {
     
     @objc dynamic var pokemonBaseName: String?
+    @objc dynamic var url: String?
     var evoluiPara = List<EvoluiPara>()
     
     required convenience init?(map: Map) {
@@ -21,6 +22,7 @@ class EvoluiPara: Object, Mappable {
     
     func mapping(map: Map) {
         self.pokemonBaseName                           <- map["species.name"]
+        self.url                                       <- map["species.url"]
         self.evoluiPara                                <- (map["evolves_to"], ListTransform<EvoluiPara>())
     }
 }

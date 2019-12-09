@@ -14,6 +14,7 @@ class EvolutionChain: Object, Mappable {
     
     var id = RealmOptional<Int>()
     @objc dynamic var pokemonBaseName: String?
+    @objc dynamic var url: String?
     var evoluiPara = List<EvoluiPara>()
     
     override static func primaryKey() -> String? {
@@ -25,8 +26,9 @@ class EvolutionChain: Object, Mappable {
     }
     
     func mapping(map: Map) {
-        self.id.value                                                  <- map["id"]
-        self.pokemonBaseName                                           <- map["chain.species.name"]
-        self.evoluiPara                                                <- (map["chain.evolves_to"], ListTransform<EvoluiPara>())
+        self.id.value                             <- map["id"]
+        self.pokemonBaseName                      <- map["chain.species.name"]
+        self.url                                  <- map["chain.species.url"]
+        self.evoluiPara                           <- (map["chain.evolves_to"], ListTransform<EvoluiPara>())
     }
 }
